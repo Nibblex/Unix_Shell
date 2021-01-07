@@ -49,7 +49,7 @@ void execute_pipeline(scpipe apipe) {
                     panic(dup2(file, 0), "dup2 in");
                     panic(close(file), "close");
                 } else
-                    if (scpipe_length(apipe) != pipeLen) // Not last sc
+                    if (scpipe_length(apipe) != pipeLen) // Not first sc
                         panic(dup2(pipefds[j-2], 0), "dup2 in");
 
                 if (out) { // sc has redir out
@@ -57,7 +57,7 @@ void execute_pipeline(scpipe apipe) {
                     panic(dup2(file, 1), "dup2 out");
                     panic(close(file), "close");
                 } else
-                    if (scpipe_length(apipe) > 1) // Not first sc
+                    if (scpipe_length(apipe) > 1) // Not last sc
                         panic(dup2(pipefds[j+1], 1), "dup2 out");
 
                 for (unsigned int i = 0; i < 2*numPipes; i++) // Close child's pipes
